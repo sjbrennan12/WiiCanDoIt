@@ -17,26 +17,26 @@ TX -> RX
 
 #include "NunchuckAPI.h"
 
-// NunchuckAPI nunchuck = NunchuckAPI();
+NunchuckAPI *nunchuck;
 int speed = 0;
 int turn = 0;
 bool horn = false;
 
 void setup() {
-  Serial.begin(38400); 
+  Serial.begin(38400);
+   nunchuck = new NunchuckAPI();
 }
 
 void loop() {
   // get data from nunchuck
-  // speed = nunchuck.getSpeed();
-  // turn = nunchuck.getTurn();
-  // horn = nunchuck.beepHorn();
+  speed = nunchuck->getSpeed();
+  turn = nunchuck->getTurn();
+  horn = nunchuck->beepHorn();
 
   // temporary -- for debugging
-  speed = 1;
-  turn = 2;
-  horn = 0;
-
+  // speed = 1;
+  // turn = 2;
+  // horn = 0;
   Serial.print(speed);
   Serial.print(turn);
   Serial.print(horn);

@@ -7,7 +7,7 @@ NunchuckAPI::NunchuckAPI(){
 }
 
 void NunchuckAPI::nunchuckSetup(){
-    nunchuck.begin();
+  nunchuck.begin();
 	if (nunchuck.type == Unknown) {
 		nunchuck.type = NUNCHUCK;
 	}

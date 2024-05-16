@@ -16,7 +16,10 @@ TX -> RX
 */
 
 char input;
+char input2;
+char input3;
 char turn;
+char turn2;
 char horn;
 
 void setup() {
@@ -25,13 +28,19 @@ void setup() {
 
 void loop() {
   if(Serial.available() > 0) { 
-    input = Serial.read(); 
+    input = Serial.read();
+    input2 = Serial.read();
+    input3 = Serial.read(); 
     Serial.print("Speed: ");
-    Serial.println(input);
+    Serial.print(input);
+    Serial.print(input2);
+    Serial.println(input3);
 
     turn = Serial.read();
+    turn2 = Serial.read();
     Serial.print("turn: ");
-    Serial.println(turn);
+    Serial.print(turn);
+    Serial.println(turn2);
 
     horn = Serial.read();
     Serial.print("horn: ");
