@@ -4,16 +4,16 @@ motor.h
 motor.h file for WiiCanDoItProject
 Thaddeus Serna
 ***/
-
+#include <servo.h>
 class Motor{
 #define Relay 7// relay pin definition 
-
+#define motorPin 9 // motor PWM input
 #ifndef MOTOR
 #define MOTOR
 
 public:
-	
-	long throttle;
+	Servo link;
+	int throttle;
 	
 
 //constructor
@@ -21,10 +21,10 @@ public:
 
 //methods
 	public:
-	// PWM output to controller between 1-2 mS or using arduino relay libary 0-180 degrees
-	void setThrottle(long input);
+	// PWM output to controller between 1-2 mS 
+	void setThrottle(int input);
 
-	long getThrottle();
+	int getThrottle();
 
 	// Stops all throttle input 
 	void emergencyBrake();

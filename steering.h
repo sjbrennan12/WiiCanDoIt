@@ -3,26 +3,25 @@ steering.h
 5-15-24
 Jack Liam Brennan
 ***/
-
-class steering{
+#include <Servo.h>	
+class Steering{
 
 
 #ifndef STEERING
 #define STEERING
-#define steeringPin = 5;
-public:
-	
-	int steeringAngle;
-	
+#define steeringPin 10
 
+int steeringAngle;
+Servo frontWheels;
+public:
 //constructor
-	steering();
+	Steering();
 
 //methods
     // PWM signal 1-2 mS or 0-180 degrees. Center is 90 degrees. 
-    void steering::steerCommand(int angle);
+    void steerCommand(int angle);
     // Return current steering PWM setting
-    int steering::getAngle();
+    int getAngle();
 };
 
 #endif
