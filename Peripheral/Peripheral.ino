@@ -1,6 +1,6 @@
 /*
 
-Karen Reynaga
+Karen Reynaga, Noa Uritsky
 Wii Can Do It Project
 
 --------- Peripheral Program ---------
@@ -13,6 +13,12 @@ VCC -> 5V
 RX -> TX
 TX -> RX
 
+Nunchuck to Mega
+SDA -> SDA
+SCL -> SCL
+GND -> GND
+VIN -> 5V
+
 */
 
 #include "NunchuckAPI.h"
@@ -20,7 +26,8 @@ TX -> RX
 NunchuckAPI *nunchuck;
 int speed = 0;
 int turn = 0;
-bool horn = false;
+int horn = 0;
+int brake = 0;
 
 void setup() {
   Serial.begin(38400);
@@ -31,15 +38,13 @@ void loop() {
   // get data from nunchuck
   speed = nunchuck->getSpeed();
   turn = nunchuck->getTurn();
-  horn = nunchuck->beepHorn();
+  horn = (int)nunchuck->beepHorn();
+  brake = 0; // TODO: implement brake on nunchuck api
 
-  // temporary -- for debugging
-  // speed = 1;
-  // turn = 2;
-  // horn = 0;
-  Serial.print(speed);
-  Serial.print(turn);
-  Serial.print(horn);
+  Serial.write(speed);
+  Serial.write(turn);
+  Serial.write(horn);
+  Serial.write(brake);
 
-  delay(100);
+  delay(250);
 }
