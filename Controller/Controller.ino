@@ -1,10 +1,11 @@
 /*
 
-Karen Reynaga
+Karen Reynaga, Noa Uritsky
 Wii Can Do It Project
 
 --------- Controller Program ---------
 Bluetooth Communication between two HC-05s
+
 
 Connections:
 HC-05
@@ -15,12 +16,10 @@ TX -> RX
 
 */
 
-char input;
-char input2;
-char input3;
-char turn;
-char turn2;
-char horn;
+int input;
+int turn;
+int horn;
+int brake;
 
 void setup() {
   Serial.begin(38400); 
@@ -28,24 +27,24 @@ void setup() {
 
 void loop() {
   if(Serial.available() > 0) { 
+    
     input = Serial.read();
-    input2 = Serial.read();
-    input3 = Serial.read(); 
-    Serial.print("Speed: ");
-    Serial.print(input);
-    Serial.print(input2);
-    Serial.println(input3);
-
     turn = Serial.read();
-    turn2 = Serial.read();
-    Serial.print("turn: ");
-    Serial.print(turn);
-    Serial.println(turn2);
-
     horn = Serial.read();
-    Serial.print("horn: ");
+    brake = Serial.read();
+
+    Serial.print("Speed: ");
+    Serial.println(input);
+    
+    Serial.print("Turn: ");
+    Serial.println(turn);
+    
+    Serial.print("Horn: ");
     Serial.println(horn);
+    
+    Serial.print("Brake: ");
+    Serial.println(brake);
   }
   
-  delay(1000);
+  delay(250);
 }
