@@ -3,6 +3,7 @@
 NunchuckAPI::NunchuckAPI(){
     this->y = 128;
     this->x = 128;
+    this->isReverse = false;
     nunchuckSetup();
 }
 
@@ -14,8 +15,21 @@ void NunchuckAPI::nunchuckSetup(){
 }
 
 int NunchuckAPI::getSpeed(){
-    nunchuck.readData();
-    return nunchuck.getJoyY();
+  nunchuck.readData();
+
+  y = nunchuck.getJoyY();
+  if(y >= 128){
+    this->isReverse = false;
+    return map(y, 128, 255, 100, 200);
+  }
+  else {
+    this->isReverse = true;
+    return map(y, 128, 0, 100, 200);
+  }
+}
+
+bool NunchuckAPI::getReverse(){
+  return this->isReverse;
 }
 
 int NunchuckAPI::getTurn(){
@@ -27,4 +41,9 @@ int NunchuckAPI::getTurn(){
 bool NunchuckAPI::beepHorn(){
     nunchuck.readData();
     return nunchuck.getButtonC();
+}
+
+bool NunchuckAPI::emerBreak(){
+    nunchuck.readData();
+    return nunchuck.getButtonZ();
 }

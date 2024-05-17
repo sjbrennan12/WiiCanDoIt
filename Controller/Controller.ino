@@ -17,6 +17,7 @@ TX -> RX
 */
 
 int input;
+int reverse;
 int turn;
 int horn;
 int brake;
@@ -28,13 +29,17 @@ void setup() {
 void loop() {
   if(Serial.available() > 0) { 
     
-    input = Serial.read();
+    input = Serial.read() * 10;
+    reverse = Serial.read();
     turn = Serial.read();
     horn = Serial.read();
     brake = Serial.read();
 
     Serial.print("Speed: ");
     Serial.println(input);
+
+    Serial.print("Reverse: ");
+    Serial.println(reverse);
     
     Serial.print("Turn: ");
     Serial.println(turn);

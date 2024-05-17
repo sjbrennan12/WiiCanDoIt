@@ -28,6 +28,7 @@ int speed = 0;
 int turn = 0;
 int horn = 0;
 int brake = 0;
+int reverse = 0;
 
 void setup() {
   Serial.begin(38400);
@@ -37,11 +38,13 @@ void setup() {
 void loop() {
   // get data from nunchuck
   speed = nunchuck->getSpeed();
+  reverse = (int) nunchuck->getReverse();
   turn = nunchuck->getTurn();
   horn = (int)nunchuck->beepHorn();
-  brake = 0; // TODO: implement brake on nunchuck api
+  brake = (int)nunchuck->emerBreak();
 
   Serial.write(speed);
+  Serial.write(reverse);
   Serial.write(turn);
   Serial.write(horn);
   Serial.write(brake);

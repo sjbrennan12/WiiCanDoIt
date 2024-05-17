@@ -9,6 +9,7 @@ class NunchuckAPI {
         Accessory nunchuck;
         int x;
         int y;
+        bool isReverse;
         void nunchuckSetup();
 
     public:
@@ -16,6 +17,8 @@ class NunchuckAPI {
         int getSpeed();
         int getTurn();
         bool beepHorn();
+        bool emerBreak();
+        bool getReverse();
     
 };
 
