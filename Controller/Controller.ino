@@ -51,5 +51,10 @@ void loop() {
     Serial.println(brake);
   }
   
+  if(horn == 1){
+    tone(42, 450, 300);
+    horn = 0;
+  }
+
   delay(250);
 }

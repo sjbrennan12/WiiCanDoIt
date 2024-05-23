@@ -20,11 +20,11 @@ int NunchuckAPI::getSpeed(){
   y = nunchuck.getJoyY();
   if(y >= 128){
     this->isReverse = false;
-    return map(y, 128, 255, 100, 200);
+    return map(y, 128, 255, 100, 130);
   }
   else {
     this->isReverse = true;
-    return map(y, 128, 0, 100, 200);
+    return map(y, 128, 0, 100, 130);
   }
 }
 
