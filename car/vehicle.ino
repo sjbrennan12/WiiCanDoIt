@@ -1,9 +1,17 @@
-#include "steering.h"
-#include "motor.h"
 #include <Arduino.h>
+#include "motor.h"
+#include "SR04.h"
+#include "steering.h"
+
 Steering* wheels;
 Motor* myMotor;
 
+#define SPEAKER_PIN 3
+#define TRIG_PIN 11
+#define ECHO_PIN 10
+
+long distance;
+uint8_t i;
 int input;
 int reverse;
 int turn;
@@ -11,7 +19,7 @@ int horn;
 int brake;
 
 void setup() {
-  // put your setup code here, to run once:
+  SR04 distanceSensor = SR04(ECHO_PIN,TRIG_PIN);
   pinMode(steeringPin,OUTPUT);
   pinMode(motorPin, OUTPUT);
   wheels = new Steering();
@@ -29,45 +37,45 @@ void setup() {
 }
 
 void loop() {
+  if(Serial.available() > 0) { 
 
+      input = Serial.read() * 10;
+      reverse = Serial.read();
+      turn = Serial.read();
+      horn = Serial.read();
+      brake = Serial.read();
 
+      Serial.println(turn);
+  }
 
-if(Serial.available() > 0) { 
+  wheels->steerCommand(turn);
+  if(reverse == 1)
+  {
+    myMotor->reverse();
+  }
+  else
+  {
+    myMotor->forward();
+  }
 
-    input = Serial.read() * 10;
-    reverse = Serial.read();
-    turn = Serial.read();
-    horn = Serial.read();
-    brake = Serial.read();
+  if(brake == 1)
+  {
+    myMotor->brake();
+  }
+  else
+  {
+    myMotor->brakeEngaged = false;
+  }
 
-    Serial.println(turn);
+  myMotor->setThrottle(input);
+
+  distance = distanceSensor.DistanceAvg(70, 15);
+  if (distance < 80) {
+    for (i = 0; i < 15; i++) {
+      tone(SPEAKER_PIN, 450, 50);
+      delay(distance / 6.0);
+    }
+  }
+
+  delay(4);
 }
-
-wheels->steerCommand(turn);
-if(reverse == 1)
-{
-  myMotor->reverse();
-}
-else
-{
-  myMotor->forward();
-}
-
-if(brake == 1)
-{
-  myMotor->brake();
-}
-else
-{
-  myMotor->brakeEngaged = false;
-}
-
-myMotor->setThrottle(input);
-
-
-delay(4);
-}
-
-
-
-
