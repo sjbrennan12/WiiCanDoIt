@@ -14,6 +14,7 @@ class Motor{
 public:
 	Servo link;
 	int throttle;
+  bool brakeEngaged;
 	
 
 //constructor
@@ -27,7 +28,7 @@ public:
 	int getThrottle();
 
 	// Stops all throttle input 
-	void emergencyBrake();
+	void brake();
 
 	// Triggers the relay to swap the A and C motor cables 
 	void reverse();
